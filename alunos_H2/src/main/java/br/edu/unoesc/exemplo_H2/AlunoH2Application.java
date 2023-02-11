@@ -22,11 +22,11 @@ public class AlunoH2Application {
 	@Bean
 	CommandLineRunner commandLineRunner(AlunoRepository repositorio) {
 		return args -> {
-			Aluno l = new Aluno(null, "Maria", new BigDecimal(2000), LocalDate.of(1991, 05, 11));
+			Aluno l = new Aluno(null, "Fulano", new BigDecimal(2000), LocalDate.of(1991, 05, 11));
 			l = repositorio.save(l);
 			System.out.println(l);
 			
-			repositorio.save(new Aluno(null, "Pedro", new BigDecimal(2000), LocalDate.of(1991, 05, 11)));
+			repositorio.save(new Aluno(null, "Sicrano", new BigDecimal(2000), LocalDate.of(1991, 05, 11)));
 			
 			Optional<Aluno> p = repositorio.findById(2);
 			if (p.isEmpty()) {
@@ -36,7 +36,7 @@ public class AlunoH2Application {
 			}
 			
 			Aluno antigo = repositorio.findById(3).get();
-			antigo.setNome("Macelo");
+			antigo.setNome("Ana");
 			antigo.setSalario(new BigDecimal(3500));
 			antigo.setNascimento(LocalDate.of(1991, 05, 11));
 			repositorio.save(antigo);
@@ -51,7 +51,7 @@ public class AlunoH2Application {
 				System.out.println(aluno);
 			}
 			
-			for (var aluno: repositorio.findByFiltroNormal("Fernando")) {
+			for (var aluno: repositorio.findByFiltroNormal("Ana")) {
 				System.out.println(aluno);
 			}
 		};
