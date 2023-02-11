@@ -1,0 +1,19 @@
+package br.edu.unoesc.exemplo_H2.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import br.edu.unoesc.exemplo_H2.model.Aluno;
+
+public interface AlunoRepository extends CrudRepository<Aluno, Integer> {
+	public List<Aluno> findByAutorContainingIgnoreCase(String autor);
+	
+	@Query("Select l from Livro l where l.paginas >= :paginas")
+	public List<Aluno> porQtdPaginas(@Param("paginas") Integer paginas);
+	
+	@Query("Select l from Livro l where upper(l.titulo) like upper(concat('%', :filtro, '%')) order by titulo")
+	public List<Aluno> findByFiltro(@Param("filtro") String filtro);
+}
